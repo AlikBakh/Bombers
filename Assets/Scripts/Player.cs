@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,7 +13,7 @@ public class Player : MonoBehaviour
     public bool canMove = true;
     public bool dead = false;
     public GameObject bombPrefab;
-    public GameObject player;
+    private GameObject player;
 
     private Rigidbody rigidBody;
     private Transform myTransform;
@@ -70,16 +71,26 @@ public class Player : MonoBehaviour
             animator.SetBool("Walking", true);
         }
 
-        if (canDropBombs && Input.GetKeyDown(Space))
+        if (Input.GetKeyDown(Space))
             DropBomb();
     }
     private void DropBomb()
     {
         player = playerNumber == 1 ? GameObject.Find("CamZone/PlayerPanel1") : GameObject.Find("CamZone/PlayerPanel2");
-        if (bombPrefab)
+        canDropBombs = CheckBombCount();
+        if (canDropBombs && bombPrefab)
             Instantiate(bombPrefab,
                 new Vector3(Mathf.RoundToInt(myTransform.position.x), bombPrefab.transform.position.y, Mathf.RoundToInt(myTransform.position.z)),
                 bombPrefab.transform.rotation, player.transform);
+    }
+    private bool CheckBombCount()
+    {
+        int bombCount = 0;
+
+        foreach (Transform child in player.transform)
+            if (child.name.StartsWith("Bomb"))
+                bombCount++;
+        return bombCount <= 3;
     }
 
     public void OnTriggerEnter(Collider other)

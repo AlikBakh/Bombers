@@ -27,9 +27,9 @@ public class Bomb : MonoBehaviour
         Destroy(gameObject, .3f);
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider col)
     {
-        if (!exploded && other.CompareTag("Explosion"))
+        if (!exploded && col.CompareTag("Explosion"))
         {
             CancelInvoke("Explode");
             Explode();
@@ -46,6 +46,5 @@ public class Bomb : MonoBehaviour
             Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation);
             yield return new WaitForSeconds(.05f);
         }
-
     }
 }

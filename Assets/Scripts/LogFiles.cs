@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using UnityEngine;
 
-internal class LogFiles
+public class LogFiles : MonoBehaviour
 {
     public static void WriteToFile(string Message, string msgType)
     {
-        string path = $"{AppDomain.CurrentDomain.BaseDirectory}\\Logs";
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
+        string path = $@"{Application.dataPath}\Logs";
+        CreateDirectory(path);
 
-        string filepath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Logs\\ServiceLog_{DateTime.Now.Date.ToShortDateString().Replace('/', '-')}.txt";
+        string filepath = $@"{Application.dataPath}\Logs\BombersLog_{DateTime.Now.Date.ToShortDateString().Replace('/', '-')}.txt";
         if (!File.Exists(filepath))
             using (StreamWriter sw = File.CreateText(filepath))
                 sw.WriteLine($"{DateTime.Now} + [{msgType}]: {Message}");
         else
             using (StreamWriter sw = File.AppendText(filepath))
                 sw.WriteLine($"{DateTime.Now} + [{msgType}]: {Message}");
+    }
+    private static void CreateDirectory(string path)
+    {
+        if (!Directory.Exists(path))
+            Directory.CreateDirectory(path);
     }
 }

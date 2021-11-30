@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GlobalStateManager : MonoBehaviour
@@ -23,7 +22,6 @@ public class GlobalStateManager : MonoBehaviour
     private void CheckPlayersDeath()
     {
         string msg = deadPlayers == 1 ? deadPlayerNumber != 1 ? "Победил 1 игрок!" : "Победил 2 игрок!" : "Ничья!";
-        Debug.Log(msg);
         winnerMsg.text = msg;
         gameoverPanel.SetActive(true);
     }

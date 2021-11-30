@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-
     public AudioClip explosionSound;
     public GameObject explosionPrefab;
     public LayerMask levelMask;

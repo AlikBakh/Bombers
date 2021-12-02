@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour
 
     public void CloseApp() => Application.Quit();
 
-    public void ReturnToMenu()
+    public void ChoosePanel()
     {
         PanelToHide.SetActive(false);
         PanelToShow.SetActive(true);

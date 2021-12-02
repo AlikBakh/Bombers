@@ -2,5 +2,5 @@
 
 public class DestroySelf : MonoBehaviour
 {
-    private void Start() => Destroy(gameObject, 1f);
+    private void Start() => Destroy(gameObject, 0.5f);
 }
